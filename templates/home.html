@@ -1,0 +1,18 @@
+
+{% extends 'base.html' %}
+{% block title %} Anasayfa - {{ block.super }}{% endblock %}
+{% block body %}
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12" style="background-color: #0b97c4; height: 100px">AMASYA
+                {% if request.user.is_authenticated %}
+                    Hoşgeldiniz, {{ request.user.get_username }}
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

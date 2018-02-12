@@ -1,0 +1,31 @@
+
+{% block body %}
+
+    <div class="container">
+    {% for job in jobs %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="thumbnail">
+                    <div class="caption">
+                     <span>{{ job }}</span>
+                        {% if job.image %}
+                            <img src="{{ job.image.url }}" class="img-responsive">
+                        {% endif %}
+                        <h4>Atanan: {{ job.atanan }}</h4>
+                        <p>{{ post.content|safe|linebreaks|truncatechars:155 }}</p>
+                        <p><a href="{{ job.get_absolute_url }}" class="btn btn-primary" role="button">İncele</a>
+                            {% if request.user.is_authenticated %} <!-- kullnanıcı yetkilendirmesi yapılıyor. Kullanıcı login oldusu ise kayıt güncellesin vaya silsin -->
+                                <a href="{{ job.get_update_url }}" class="btn btn-default" role="button">Güncelle</a>
+                                <a href="{{ post.get_delete_url }}" class="btn btn-danger" role="button">Sil</a>
+                            {% endif %}
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+    </div>
+
+{% endblock %}

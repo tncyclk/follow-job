@@ -52,10 +52,10 @@ class Job(models.Model):
     def atanan(self):
         return ",".join([str(p) for p in self.assigned_to.all()])
 
-    def get_absolute_url(self):
-        #return reverse('post:detail', kwargs={'slug': self.slug})
-        print("id---->> "+str(self.id))
-        return "follow/{}".format(id=self.id)
+    # def get_absolute_url(self):
+    #     #return reverse('post:detail', kwargs={'slug': self.slug})
+    #     print("id---->> "+str(self.id))
+    #     return "follow/{}".format(id=self.id)
 
     # def get_create_url(self):
     #     #return reverse('post:create', kwargs={'slug': self.slug})

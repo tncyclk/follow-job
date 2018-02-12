@@ -10,5 +10,7 @@ urlpatterns = [
     path('<int:id>/update/', job_update, name="update"),
     path('<int:id>/delete/', job_delete, name="delete"),
     path('form/', form_view, name="form"),
+    path('login/', login_view, name="login"),
+    path('logout/', logout_view, name="logout"),
 
 ]
