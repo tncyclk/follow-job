@@ -5,7 +5,9 @@
     </div>
     <ul class="navbar-nav ">
       <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-      <li class="nav-item"><a class="nav-link" href="{% url 'follow:login' %}">Giriş Yap</a></li>
+        {% if not request.user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'follow:login' %}">Giriş Yap</a></li>
+        {% endif %}
       <li class="nav-item"><a class="nav-link" href="#">Hakkında</a></li>
       <li class="nav-item"><a class="nav-link" href="#">İletişim</a></li>
         {% if request.user.is_authenticated %}
