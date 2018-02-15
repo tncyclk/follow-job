@@ -1,5 +1,5 @@
 from django.db import models
-#from django.urls import reverse
+from django.urls import reverse
 from django.utils.text import slugify
 # from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
@@ -27,12 +27,26 @@ STATUS = (
 class Project(models.Model):
     project_name = models.CharField(max_length=50, verbose_name="Proje Adı")
     members = models.ManyToManyField(User, null=True, verbose_name="Üyeler", default=None)
+    slug = models.SlugField(unique=True, editable=False, max_length=130)
 
     def __str__(self):
         return self.project_name
 
     def users(self):
         return ",".join([str(p) for p in self.members.all()])
+
+    def get_unique_slug(self):
+        slug = slugify(self.project_name.replace('ı', 'i'))
+        unique_slug = slug
+        counter = 1
+        while Project.objects.filter(slug=unique_slug).exists():
+            unique_slug = '{}-{}'.format(slug, counter)
+            counter += 1
+        return unique_slug
+
+    def save(self, *args, **kwargs):
+        self.slug = self.get_unique_slug()
+        return super(Project, self).save(*args, **kwargs)
 
 class Job(models.Model):
     project_name = models.ForeignKey(Project, null=True, blank=True, on_delete=models.CASCADE)
@@ -45,6 +59,7 @@ class Job(models.Model):
     end_date = models.DateField(blank=True, null=True, verbose_name="Bitiş Tarihi")
     result = models.TextField(verbose_name="Sonuç", blank=True)
     file = models.FileField(blank=True, verbose_name='Dosya Ekle')
+    slug = models.SlugField(unique=True, editable=False, max_length=130)
 
     def __str__(self):
         return self.subject
@@ -52,10 +67,26 @@ class Job(models.Model):
     def assigned(self):
         return ",".join([str(p) for p in self.assigned_to.all()])
 
-    # def get_absolute_url(self):
-    #     #return reverse('post:detail', kwargs={'slug': self.slug})
-    #     print("id---->> "+str(self.id))
-    #     return "follow/{}".format(id=self.id)
+    def get_absolute_url(self):
+        return reverse('follow:detail', kwargs={'slug': self.slug})
+        # print("id---->> "+str(self.id))
+        #  return "follow/{}".format(slug=self.slug)
+
+    def get_unique_slug(self):
+        slug = slugify(self.subject.replace('ı', 'i'))
+        unique_slug = slug
+        counter = 1
+        while Job.objects.filter(slug=unique_slug).exists():
+            unique_slug = '{}-{}'.format(slug, counter)
+            counter += 1
+        return unique_slug
+
+    def save(self, *args, **kwargs):
+        self.slug = self.get_unique_slug()
+        return super(Job, self).save(*args, **kwargs)
+
+
+
 
     # def get_create_url(self):
     #     #return reverse('post:create', kwargs={'slug': self.slug})

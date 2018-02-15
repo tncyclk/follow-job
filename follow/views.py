@@ -42,8 +42,14 @@ def project_index(request):
 def job_create(request):
     return HttpResponse('<b>create</b>')
 
-def job_detail(request):
-    return HttpResponse('<b>detail</b>')
+def job_detail(request, slug):
+    jobs = get_object_or_404(Job, slug=slug)
+    # print("id: "+str(id))
+
+    context = {
+        'jobs': jobs,
+    }
+    return render(request, 'follow/detail.html', context)
 
 def job_update(request):
     return HttpResponse('<b>update</b>')

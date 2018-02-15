@@ -6,6 +6,7 @@
       <table class="table">
         <thead>
         <tr>
+            <th></th>
             <th>İşin Adı</th>
             <th>Proje Adı</th>
             <th>İşin Tipi</th>
@@ -16,8 +17,11 @@
           </tr>
         </thead>
         <tbody>
+
             {% for job in jobs %}
-                <tr>
+
+                <tr {% if job.status == 'NEW' %} style="background: #00B0E8" {% elif job.status == 'IN PROGRES' %} style="background: #0c5460"  {% endif %}>
+                <td><p><a href="{{ job.get_absolute_url }}" class="btn btn-primary" role="button">İncele</a></td>
                 <td>{{ job.subject }}</td>
                 <td>{{ job.project_name }}</td>
                 <td>{{ job.tracker }}</td>
@@ -25,8 +29,12 @@
                 <td>{{ job.start_date }}</td>
                 <td>{{ job.end_date }}</td>
                 <td>{{ job.assigned }}</td>
+
+
                 </tr>
+
             {% endfor %}
+
         </tbody>
       </table>
     </div>
