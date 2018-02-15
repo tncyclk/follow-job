@@ -17,7 +17,7 @@ admin.site.register(Job, JobAdmin)
 
 class ProjectAdmin(admin.ModelAdmin):
 
-     list_display = ['project_name', 'users']
+     list_display = ['project_name', 'users', 'slug']
      list_display_links = ['project_name', 'users']
      # list_filter = ['project_name', 'members']
      # search_fields = ['project_name', 'members']

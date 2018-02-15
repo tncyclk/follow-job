@@ -48,6 +48,11 @@ class Project(models.Model):
         self.slug = self.get_unique_slug()
         return super(Project, self).save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse('follow:detail', kwargs={'slug': self.slug})
+
+
+
 class Job(models.Model):
     project_name = models.ForeignKey(Project, null=True, blank=True, on_delete=models.CASCADE)
     subject = models.CharField(max_length=120, verbose_name="Konu")
