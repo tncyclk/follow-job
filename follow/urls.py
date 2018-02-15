@@ -12,5 +12,6 @@ urlpatterns = [
     path('form/', form_view, name="form"),
     path('login/', login_view, name="login"),
     path('logout/', logout_view, name="logout"),
+    path('project/', project_index, name="project"),
 
 ]

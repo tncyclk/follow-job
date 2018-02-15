@@ -12,7 +12,9 @@
       <li class="nav-item"><a class="nav-link" href="#">İletişim</a></li>
         {% if request.user.is_authenticated %}
             <li class="nav-item"><a class="nav-link" href="{% url 'follow:index' %}">İş Listesi</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'follow:project' %}">Projeler</a></li>
             <li class="nav-item"><a class="nav-link navbar-right" href="{% url 'follow:logout' %}">Çıkış Yap</a></li>
+
         {% endif %}
     </ul>
   </div>

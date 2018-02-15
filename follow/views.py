@@ -32,16 +32,12 @@ def home_view(request):
 
 
 def job_index(request):
-    job = Job.objects.all()
-    subject = Job.objects.order_by('subject')
-    tracker = Job.objects.order_by('tracker')
-    print("---->> "+str(subject))
-    context = {
-        'job': job,
-        'subject': subject,
-        'tracker': tracker,
-    }
-    return render(request, 'follow/index.html', context)
+    jobs = Job.objects.all()
+    return render(request, 'follow/index.html', {'jobs': jobs})
+
+def project_index(request):
+    projects = Project.objects.all()
+    return render(request, 'follow/project.html', {'projects': projects})
 
 def job_create(request):
     return HttpResponse('<b>create</b>')

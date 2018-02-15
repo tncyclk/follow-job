@@ -6,7 +6,7 @@
     <div class="container-fluid">
 
         <div class="row">
-            <div class="col-md-12 col-sm-12" style="background-color: #0b97c4; height: 100px">AMASYA
+            <div class="col-md-12 col-sm-12">
                 {% if request.user.is_authenticated %}
                     Hoşgeldiniz, {{ request.user.get_username }}
                 {% endif %}

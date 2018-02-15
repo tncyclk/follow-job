@@ -49,7 +49,7 @@ class Job(models.Model):
     def __str__(self):
         return self.subject
 
-    def atanan(self):
+    def assigned(self):
         return ",".join([str(p) for p in self.assigned_to.all()])
 
     # def get_absolute_url(self):

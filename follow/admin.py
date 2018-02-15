@@ -4,7 +4,7 @@ from follow.models import Job, Project
 # # Register your models here.
 class JobAdmin(admin.ModelAdmin):
 #
-     list_display = ['subject', 'atanan', 'status', 'tracker', 'start_date', 'end_date']
+     list_display = ['subject', 'assigned', 'status', 'tracker', 'start_date', 'end_date']
      list_display_links = ['subject']
      list_filter = ['status', 'tracker', 'assigned_to']
      search_fields = ['subject', 'assigned_to']

@@ -1,32 +1,35 @@
 {% extends 'base.html' %}
 {% block body %}
 
-<div class="container">
+    <div class="container">
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>İşin Adı</th>
-        <th>Proje Adı</th>
-        <th>İşin Tipi</th>
-        <th>Durum</th>
-        <th>Başlangıç Tarihi</th>
-        <th>Bitiş Tarihi</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for job in jobs %}
-         <tr>
-        <td><span>{{ job }}</span></td>
-        <td>{{ job.subject }}</td>
-        <td>{{ job.tracker }}</td>
-         </tr>
-
-    {% endfor %}
-    </tbody>
-  </table>
-</div>
-    
+      <table class="table">
+        <thead>
+        <tr>
+            <th>İşin Adı</th>
+            <th>Proje Adı</th>
+            <th>İşin Tipi</th>
+            <th>Durum</th>
+            <th>Başlangıç Tarihi</th>
+            <th>Bitiş Tarihi</th>
+            <th>Atanan</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for job in jobs %}
+                <tr>
+                <td>{{ job.subject }}</td>
+                <td>{{ job.project_name }}</td>
+                <td>{{ job.tracker }}</td>
+                <td>{{ job.status }}</td>
+                <td>{{ job.start_date }}</td>
+                <td>{{ job.end_date }}</td>
+                <td>{{ job.assigned }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
 {% endblock %}
 
 
