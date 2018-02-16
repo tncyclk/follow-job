@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block body %}
 <head>
   <title>Bootstrap Example</title>
@@ -9,30 +10,29 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <div class="container">
+<h2>{{ project_name }}</h2>
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>Proje Adı</th>
-        <th>Açıklama</th>
-        <th>Üyeler</th>
+          <th>Hata</th>
+          <th>Özellik</th>
+          <th>Test</th>
+          <th>Araştırma</th>
+          <th>Destek</th>
       </tr>
     </thead>
     <tbody>
-       {% for project in projects %}
+
          <tr>
-         <td><a href="{{ project.get_absolute_url }}">{{ project.project_name }}</a></td>
-          <td>{{ project.description }}</td>
-          <td><a href="{{ project.get_absolute_url }}">{{ project.users }} </a></td>
+             <td>{{ bug_count }}</td>
+             <td>{{ feature_count }}</td>
+             <td>{{ test_count }}</td>
+             <td>{{ research_count }}</td>
+             <td>{{ support_count }}</td>
          </tr>
-        {% endfor %}
     </tbody>
   </table>
 </div>
 
 
 {% endblock %}
-
-
-
-
-

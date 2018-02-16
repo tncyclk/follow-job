@@ -13,5 +13,6 @@ urlpatterns = [
     path('login', login_view, name="login"),
     path('logout', logout_view, name="logout"),
     path('project', project_index, name="project"),
+    path('<slug>', project_detail, name="project_detail"),
 
 ]

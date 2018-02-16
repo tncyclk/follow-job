@@ -27,7 +27,8 @@ STATUS = (
 class Project(models.Model):
     project_name = models.CharField(max_length=50, verbose_name="Proje Adı")
     members = models.ManyToManyField(User, null=True, verbose_name="Üyeler", default=None)
-    slug = models.SlugField(unique=True, editable=False, max_length=130)
+    description = models.TextField(verbose_name="Açıklama", blank=True)
+    slug = models.SlugField(unique=True, editable=True, max_length=130)
 
     def __str__(self):
         return self.project_name
@@ -49,7 +50,7 @@ class Project(models.Model):
         return super(Project, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('follow:detail', kwargs={'slug': self.slug})
+        return reverse('follow:project_detail', kwargs={'slug': self.slug})
 
 
 

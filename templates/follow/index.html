@@ -1,46 +1,50 @@
 {% extends 'base.html' %}
 {% block body %}
 
-    <div class="container">
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
 
-      <table class="table">
-        <thead>
-        <tr>
-            <th></th>
-            <th>İşin Adı</th>
-            <th>Proje Adı</th>
-            <th>İşin Tipi</th>
-            <th>Durum</th>
-            <th>Başlangıç Tarihi</th>
-            <th>Bitiş Tarihi</th>
-            <th>Atanan</th>
-          </tr>
-        </thead>
-        <tbody>
+<div class="container">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>İşin Adı</th>
+        <th>Proje Adı</th>
+        <th>İşin Tipi</th>
+        <th>Durum</th>
+        <th>Başlangıç Tarihi</th>
+        <th>Bitiş Tarihi</th>
+        <th>Atanan</th>
+      </tr>
+    </thead>
+    <tbody>
+       {% for job in jobs %}
+            <tr {% if job.status == 'NEW' %} style="background: #00B0E8" {% elif job.status == 'IN PROGRES' %} style="background: #00ad9c"  {% endif %}>
+            <td><a href="{{ job.get_absolute_url }}">{{ job.subject }}</a></td>
+            <td><a href="{{ project.get_absolute_url }}">{{ job.project_name }}</a></td>
+            <td>{{ job.tracker }}</td>
+            <td>{{ job.status }}</td>
+            <td>{{ job.start_date }}</td>
+            <td>{{ job.end_date }}</td>
+            <td><a href="{{ project.get_absolute_url }}">{{ job.assigned }}</a></td>
+            </tr>
+       {% endfor %}
+    </tbody>
+  </table>
+</div>
 
-            {% for job in jobs %}
+</body>
+</html>
 
-                <tr {% if job.status == 'NEW' %} style="background: #00B0E8" {% elif job.status == 'IN PROGRES' %} style="background: #0c5460"  {% endif %}>
-                <td><p><a href="{{ job.get_absolute_url }}" class="btn btn-primary" role="button">İncele</a></td>
-                <td>{{ job.subject }}</td>
-                <td>{{ job.project_name }}</td>
-                <td>{{ job.tracker }}</td>
-                <td>{{ job.status }}</td>
-                <td>{{ job.start_date }}</td>
-                <td>{{ job.end_date }}</td>
-                <td>{{ job.assigned }}</td>
-
-
-                </tr>
-
-            {% endfor %}
-
-        </tbody>
-      </table>
-    </div>
 {% endblock %}
-
-
 
 
 
