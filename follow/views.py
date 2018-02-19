@@ -7,22 +7,20 @@ from .forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
 # from django.contrib import messages
 from django.urls import reverse
+from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your views here.
-
 def form_view(request):
     form = LoginForm(request.POST or None, request.FILES or None)
     context = {
         'form': form,
     }
-
     return render(request, 'follow/form.html', context)
-
 
 def home_view(request):
     if request.user.is_authenticated:
-
         context = {
             'isim': 'Tuncay',
         }
@@ -32,26 +30,27 @@ def home_view(request):
         }
     return render(request, 'home.html', context)
 
-
 def job_index(request):
     jobs = Job.objects.all()
-    return render(request, 'follow/index.html', {'jobs': jobs})
-
-def project_index(request):
     projects = Project.objects.all()
-    return render(request, 'follow/project.html', {'projects': projects})
+    print(projects)
+    context = {
+        'jobs': jobs,
+        'projects': projects,
+    }
+    return render(request, 'follow/index.html', context)
+
+def job_detail(request, slug):
+    jobs = get_object_or_404(Job, slug=slug)
+    return render(request, 'follow/detail.html', {'jobs': jobs})
 
 def job_create(request):
     return HttpResponse('<b>create</b>')
 
-def job_detail(request, slug):
-    jobs = get_object_or_404(Job, slug=slug)
-    # print("id: "+str(id))
 
-    context = {
-        'jobs': jobs,
-    }
-    return render(request, 'follow/detail.html', context)
+def project_index(request):
+    projects = Project.objects.all()
+    return render(request, 'follow/project.html', {'projects': projects})
 
 def project_detail(request, slug):
     projects = get_object_or_404(Project, slug=slug)
@@ -63,6 +62,7 @@ def project_detail(request, slug):
     research_count = Job.objects.filter(project_name=projects, tracker='RESEARCH').count()
     support_count = Job.objects.filter(project_name=projects, tracker='SUPPORT').count()
     context = {
+        'title': projects,
         'bug_count': bug_count,
         'feature_count': feature_count,
         'test_count': test_count,
@@ -72,16 +72,13 @@ def project_detail(request, slug):
     }
     print(str(context))
     return render(request, 'follow/projectdetail.html', context)
-    # return reverse('followprojectdetail.html', kwargs={'slug': self.slug})
-
+    # return reverse('follow/projectdetail.html', kwargs={'slug': slug})
 
 def job_update(request):
     return HttpResponse('<b>update</b>')
 
 def job_delete(request):
     return HttpResponse('<b>delete</b>')
-
-
 
 #kullanıcı login
 def login_view(request):
@@ -100,3 +97,10 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+def user_detail(request):
+    username = request.user.get_username
+    # mail = User.objects.get(email=username)
+    # print(mail)
+    print("login olan kullanıcı: "+str(username))
+    return render(request, 'follow/user.html', {'username': username})

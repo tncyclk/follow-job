@@ -12,7 +12,9 @@ urlpatterns = [
     path('form', form_view, name="form"),
     path('login', login_view, name="login"),
     path('logout', logout_view, name="logout"),
+    path('user', user_detail, name="user"),
     path('project', project_index, name="project"),
     path('<slug>', project_detail, name="project_detail"),
+
 
 ]

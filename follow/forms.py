@@ -14,3 +14,14 @@ class LoginForm(forms.Form):
             if not user:
                 raise forms.ValidationError("Kullanıcı adını veya şifreyi yanlış girdiniz!")
         return super(LoginForm, self).clean()
+
+
+# class JobForm(forms.ModelForm):
+#     captcha = ReCaptchaField()
+#     class Meta:
+#         model = Post
+#         fields = [
+#             'title',
+#             'content',
+#             'image',
+#         ]

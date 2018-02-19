@@ -28,13 +28,16 @@ class Project(models.Model):
     project_name = models.CharField(max_length=50, verbose_name="Proje Adı")
     members = models.ManyToManyField(User, null=True, verbose_name="Üyeler", default=None)
     description = models.TextField(verbose_name="Açıklama", blank=True)
-    slug = models.SlugField(unique=True, editable=True, max_length=130)
+    slug = models.SlugField(unique=True, editable=False, max_length=130, blank=True)
 
     def __str__(self):
         return self.project_name
 
     def users(self):
         return ",".join([str(p) for p in self.members.all()])
+
+    def get_absolute_url(self):
+        return reverse('follow:project_detail', kwargs={'slug': self.slug})
 
     def get_unique_slug(self):
         slug = slugify(self.project_name.replace('ı', 'i'))
@@ -48,10 +51,6 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         self.slug = self.get_unique_slug()
         return super(Project, self).save(*args, **kwargs)
-
-    def get_absolute_url(self):
-        return reverse('follow:project_detail', kwargs={'slug': self.slug})
-
 
 
 class Job(models.Model):
@@ -77,6 +76,9 @@ class Job(models.Model):
         return reverse('follow:detail', kwargs={'slug': self.slug})
         # print("id---->> "+str(self.id))
         #  return "follow/{}".format(slug=self.slug)
+
+    def get_absolute_url2(self):
+        return reverse('follow:project_detail', kwargs={'slug': self.slug})
 
     def get_unique_slug(self):
         slug = slugify(self.subject.replace('ı', 'i'))

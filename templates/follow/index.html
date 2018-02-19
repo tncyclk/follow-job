@@ -29,12 +29,12 @@
        {% for job in jobs %}
             <tr {% if job.status == 'NEW' %} style="background: #00B0E8" {% elif job.status == 'IN PROGRES' %} style="background: #00ad9c"  {% endif %}>
             <td><a href="{{ job.get_absolute_url }}">{{ job.subject }}</a></td>
-            <td><a href="{{ project.get_absolute_url }}">{{ job.project_name }}</a></td>
+            <td><a href="{{ job.get_absolute_url2 }}">{{ job.project_name }}</a></td>
             <td>{{ job.tracker }}</td>
             <td>{{ job.status }}</td>
             <td>{{ job.start_date }}</td>
             <td>{{ job.end_date }}</td>
-            <td><a href="{{ project.get_absolute_url }}">{{ job.assigned }}</a></td>
+            <td><a href="{% url 'follow:user' %}">{{ job.assigned }}</a></td>
             </tr>
        {% endfor %}
     </tbody>
